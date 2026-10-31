@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "Flujo del análisis de demanda", "output": "arquitectura.html", "quality_profile": "showcase" },
+  "components": [
+    { "id": "raw", "type": "external", "label": "Datos crudos", "sublabel": "data_01.txt", "pos": [30, 50], "size": [120, 50] },
+    { "id": "calidad", "type": "backend", "label": "Calidad de datos", "sublabel": "nulos, vacíos, festivos", "pos": [190, 50], "size": [130, 50] },
+    { "id": "eda", "type": "backend", "label": "Análisis exploratorio", "sublabel": "9 figuras", "pos": [350, 50], "size": [150, 50] },
+    { "id": "sel", "type": "backend", "label": "Selección", "sublabel": "5 terminales, 5 operaciones", "pos": [530, 50], "size": [140, 50] },
+    { "id": "series", "type": "database", "label": "Series diarias", "sublabel": "25 terminal-operación", "pos": [710, 50], "size": [130, 50] },
+    { "id": "base", "type": "backend", "label": "Baselines", "sublabel": "promedio por día de semana", "pos": [430, 190], "size": [130, 50] },
+    { "id": "poi", "type": "backend", "label": "Poisson por serie", "sublabel": "con calendario", "pos": [590, 190], "size": [130, 50] },
+    { "id": "gb", "type": "backend", "label": "Gradient boosting", "sublabel": "scikit-learn", "pos": [750, 190], "size": [130, 50] },
+    { "id": "mezcla", "type": "backend", "label": "Mezcla", "sublabel": "Poisson + boosting", "pos": [670, 330], "size": [130, 50] },
+    { "id": "val", "type": "security", "label": "Validación rolling", "sublabel": "4 cortes de 15 días", "pos": [510, 330], "size": [130, 50] },
+    { "id": "pred", "type": "backend", "label": "Predicción", "sublabel": "1-15 junio 2017", "pos": [350, 330], "size": [130, 50] },
+    { "id": "csv", "type": "database", "label": "predicciones_15dias.csv", "sublabel": "salida", "pos": [160, 330], "size": [160, 50] },
+    { "id": "informe", "type": "external", "label": "Informe ejecutivo", "sublabel": "docx", "pos": [10, 330], "size": [120, 50] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "raw", "to": "calidad", "label": "carga" },
+    { "id": "c2", "from": "calidad", "to": "eda", "label": "datos limpios" },
+    { "id": "c3", "from": "eda", "to": "sel", "label": "hallazgos" },
+    { "id": "c4", "from": "sel", "to": "series", "label": "filtro" },
+    { "id": "c5", "from": "series", "to": "base" },
+    { "id": "c6", "from": "series", "to": "poi" },
+    { "id": "c7", "from": "series", "to": "gb" },
+    { "id": "c8", "from": "poi", "to": "mezcla" },
+    { "id": "c9", "from": "gb", "to": "mezcla" },
+    { "id": "c10", "from": "base", "to": "val", "variant": "dashed", "label": "referencia" },
+    { "id": "c11", "from": "mezcla", "to": "val", "label": "WAPE" },
+    { "id": "c12", "from": "val", "to": "pred", "label": "modelo elegido" },
+    { "id": "c13", "from": "pred", "to": "csv" },
+    { "id": "c14", "from": "csv", "to": "informe" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "Validación", "items": ["WAPE 0,32 de la mezcla", "0,45 del mejor baseline"] },
+    { "dot": "cyan", "title": "Datos", "items": ["31 ene a 31 may 2017", "47 terminales, 46 operaciones"] }
+  ]
+}
