@@ -7,3 +7,5 @@ __pycache__/
 docs/arquitectura/*.finalize*.json
 docs/arquitectura/arquitectura.browser-check.json
 docs/arquitectura/arquitectura.delivery.json
+informe_ejecutivo.docx
+docs/

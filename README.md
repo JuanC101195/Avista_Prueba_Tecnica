@@ -21,8 +21,6 @@ El cuaderno se demora unos minutos entre las dos partes (validación con cuatro 
 ```
 notebook/analisis_prediccion.ipynb  todo el análisis y el modelo (Parte 1 y Parte 2), con salidas
 outputs/                          figuras, predicciones_15dias.csv, metricas_validacion.csv, resumen.json y los ext_*
-informe_ejecutivo.docx            informe para la entidad
-docs/arquitectura/arquitectura.html   diagrama del flujo del análisis (archify)
 ```
 
 ## Resultado en una línea
