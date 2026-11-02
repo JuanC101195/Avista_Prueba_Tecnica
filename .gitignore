@@ -5,3 +5,5 @@ __pycache__/
 .ipynb_checkpoints/
 ~$*
 docs/arquitectura/*.finalize*.json
+docs/arquitectura/arquitectura.browser-check.json
+docs/arquitectura/arquitectura.delivery.json

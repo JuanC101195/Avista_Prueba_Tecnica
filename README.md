@@ -28,3 +28,9 @@ docs/arquitectura/arquitectura.html   diagrama del flujo del análisis (archify)
 ## Resultado en una línea
 
 Modelo elegido: mezcla de regresión de Poisson con calendario y gradient boosting. En la ventana de prueba (17 al 31 de mayo) tiene WAPE 0,32 contra 0,45 del mejor método simple (promedio por día de la semana).
+
+## Extensión
+
+`notebook/extension_todas_las_series.ipynb` repite el enfoque sobre las 47 x 46 combinaciones de terminal y operación, no solo las 25 del 5x5. Las separa en viables, ralas e inactivas, aplica el mismo modelo a las viables y un método simple a las ralas, y valida con los mismos cuatro cortes (WAPE 0,37 por serie viable contra 0,48 del baseline; 0,30 por terminal y 0,20 por operación al sumar series).
+Solo las series con 10 o más transacciones por día nos parecen confiables a nivel individual.
+Las salidas están en `outputs/` con el prefijo `ext_`: `ext_predicciones_15dias_todas.csv`, `ext_pronostico_por_terminal.csv`, `ext_pronostico_por_operacion.csv`, `ext_metricas_por_segmento.csv` y las figuras `ext_fig*.png`. Corre en menos de un minuto.
